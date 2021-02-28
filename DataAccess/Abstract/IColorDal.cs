@@ -5,8 +5,8 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-    public interface IColorDal
+    public interface IColorDal : IEntityRepository <Color>
     {
-        List<Color> GetAll();
+        
     }
 }
