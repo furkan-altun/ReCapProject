@@ -18,27 +18,27 @@ namespace Business.Concrete
 
         public List<Color> GetAll()
         {
-            throw new NotImplementedException();
+            return  _colorDal.GetAll();
         }
 
         public Color GetColorById(int colorId)
         {
-            throw new NotImplementedException();
+            return _colorDal.Get(x => x.ColorId == colorId);
         }
 
-        public void AddColor(Color carEntity)
+        public void AddColor(Color colorEntity)
         {
-            throw new NotImplementedException();
+            _colorDal.Add(colorEntity);
         }
 
-        public void UpdateColor(Color carEntity)
+        public void UpdateColor(Color colorEntity)
         {
-            throw new NotImplementedException();
+            _colorDal.Update(colorEntity);
         }
 
-        public void DeleteColor(Color carEntity)
+        public void DeleteColor(Color colorEntity)
         {
-            throw new NotImplementedException();
+            _colorDal.Delete(colorEntity);
         }
     }
 }

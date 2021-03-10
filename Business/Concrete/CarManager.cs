@@ -3,7 +3,9 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -18,27 +20,32 @@ namespace Business.Concrete
 
         public List<Car> GetAll()
         {
-            throw new NotImplementedException();
+            return _carDal.GetAll(x => x.DailyPrice < 50000);
         }
 
-        public List<Car> GetCarById(int carId)
+        public Car GetCarById(int carId)
         {
-            throw new NotImplementedException();
+            return _carDal.Get(x => x.Id == carId);
         }
 
         public void AddCar(Car carEntity)
         {
-            throw new NotImplementedException();
+            _carDal.Add(carEntity);
         }
 
         public void UpdateCar(Car carEntity)
         {
-            throw new NotImplementedException();
+            _carDal.Update(carEntity);
         }
 
         public void DeleteCar(Car carEntity)
         {
-            throw new NotImplementedException();
+            _carDal.Delete(carEntity);
+        }
+
+        public List<CarDetailDto> GetAllCarsWithDetail()
+        {
+            return _carDal.CarListWithDetail();
         }
     }
 }
