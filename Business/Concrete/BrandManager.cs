@@ -9,27 +9,35 @@ namespace Business.Concrete
 {
     public class BrandManager : IBrandService
     {
-        IBrandDal _brandDal;
+        private readonly IBrandDal _brandDal;
         public BrandManager(IBrandDal brandDal)
         {
             _brandDal = brandDal;
         }
+
         public void AddBrand(Brand brandEntity)
         {
-            if (brandEntity.BrandName.Length < 2)
-            {
-                Console.WriteLine("Araba ismi minimum 2 karakter olmalıdır");
-            }
-            else
-            {
-                _brandDal.Add(brandEntity);
-                Console.WriteLine(brandEntity.BrandName + " eklendi");
-            }            
+            _brandDal.Add(brandEntity);
+        }
+
+        public void DeleteBrand(Brand brandEntity)
+        {
+            _brandDal.Delete(brandEntity);   
         }
 
         public List<Brand> GetAll()
         {
             return _brandDal.GetAll();
+        }
+
+        public Brand GetBrandById(int brandId)
+        {
+            return _brandDal.Get(x => x.BrandId == brandId);
+        }
+
+        public void UpdateBrand(Brand brandEntity)
+        {
+            _brandDal.Update(brandEntity);
         }
     }
 }
