@@ -17,6 +17,27 @@ namespace ConsoleUI
             //BrandManagerCrud();
 
             //ColorManagerCrud();
+
+            //HandleException();
+        }
+
+        private static void HandleException()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+
+            //GetAllWithDetail For Cars
+            var result = carManager.GetAllCarsWithDetail();
+            if (!result.Success)
+            {
+                Console.WriteLine("Ürünler getirilemedi");
+            }
+            else
+            {
+                foreach (var item in result.Data)
+                {
+                    Console.WriteLine($"{item.CarBrand} - {item.Color} - {item.Model} - {item.Description}");
+                }
+            }
         }
 
         private static void ColorManagerCrud()

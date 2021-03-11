@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using Core.Utilities.Results;
 using Entities.DTOs;
 
 namespace Business.Concrete
@@ -18,34 +19,46 @@ namespace Business.Concrete
         }
 
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll(x => x.DailyPrice < 50000);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(x => x.DailyPrice < 50000));
         }
 
-        public Car GetCarById(int carId)
+        public IDataResult<Car> GetCarById(int carId)
         {
-            return _carDal.Get(x => x.Id == carId);
+            if (DateTime.Now.Hour == 15)
+            {
+                return new ErrorDataResult<Car>("Sistem bakımda");
+            }
+            return new SuccessDataResult<Car>(_carDal.Get(x => x.Id == carId));
         }
 
-        public void AddCar(Car carEntity)
+        public IResult AddCar(Car carEntity)
         {
+            if (DateTime.Now.Hour == 15)
+            {
+                return new ErrorResult("Sistem bakımda");
+            }
+
             _carDal.Add(carEntity);
+            return new SuccessResult("Ürün eklendi");
         }
 
-        public void UpdateCar(Car carEntity)
+        public IResult UpdateCar(Car carEntity)
         {
             _carDal.Update(carEntity);
+            return new SuccessResult();
         }
 
-        public void DeleteCar(Car carEntity)
+        public IResult DeleteCar(Car carEntity)
         {
             _carDal.Delete(carEntity);
+            return new Result(true);
         }
 
-        public List<CarDetailDto> GetAllCarsWithDetail()
+        public IDataResult<List<CarDetailDto>> GetAllCarsWithDetail()
         {
-            return _carDal.CarListWithDetail();
+            return new DataResult<List<CarDetailDto>>(_carDal.CarListWithDetail(),true);
         }
     }
 }

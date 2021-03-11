@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Business.Abstract;
+﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using System.Collections.Generic;
 
 namespace Business.Concrete
 {
@@ -16,29 +15,37 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
-        public List<Color> GetAll()
+        public IDataResult<List<Color>> GetAll()
         {
-            return  _colorDal.GetAll();
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
         }
 
-        public Color GetColorById(int colorId)
+        public IDataResult<Color> GetColorById(int colorId)
         {
-            return _colorDal.Get(x => x.ColorId == colorId);
+            return new DataResult<Color>(_colorDal.Get(x => x.ColorId == colorId),true);
         }
 
-        public void AddColor(Color colorEntity)
+        public IResult AddColor(Color colorEntity)
         {
             _colorDal.Add(colorEntity);
+            return new Result(true);
         }
 
-        public void UpdateColor(Color colorEntity)
+        public IResult UpdateColor(Color colorEntity)
         {
             _colorDal.Update(colorEntity);
+            return new SuccessResult("Ürün eklendi");
         }
 
-        public void DeleteColor(Color colorEntity)
+        public IResult DeleteColor(Color colorEntity)
         {
+            if (colorEntity.ColorId == 1)
+            {
+                return new ErrorResult("Bu ürün silinemez");
+            }
+
             _colorDal.Delete(colorEntity);
+            return new SuccessResult();
         }
     }
 }
