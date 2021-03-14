@@ -3,6 +3,7 @@ using DataAccess.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.EntityFrameworkCore.Storage;
 
@@ -19,6 +20,173 @@ namespace ConsoleUI
             //ColorManagerCrud();
 
             //HandleException();
+
+            //UserManagerCrud();
+
+            //CustomerManagerCrudAndDto();
+
+            //RentalManagerCrudAndDto();
+        }
+
+        private static void RentalManagerCrudAndDto()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            //List Detailed rental list
+            //var result = rentalManager.GetRentalDetail();
+            //foreach (var item in result.Data)
+            //{
+            //    Console.WriteLine($"{item.Id} - {item.CarBrand} - {item.CustomerName} - {item.RentDate} - {item.ReturnDate}");
+            //}
+
+            //List all Rental Processes
+            //var result = rentalManager.GetAllRentalProcesses();
+            //foreach (var item in result.Data)
+            //{
+            //    Console.WriteLine($"{item.Id} - {item.CustomerId} - {item.CarId} - {item.RentDate} - {item.ReturnDate}");
+            //}
+
+            //Get Rental Process
+            //var result = rentalManager.GetRentalProcessById(1);
+            //Console.WriteLine($"{result.Data.Id} - {result.Data.CustomerId} - {result.Data.CarId} - {result.Data.RentDate} - {result.Data.ReturnDate}");
+
+            //Add Rental Process
+            //var addedRentalProcess = new Rental
+            //{
+            //    CarId = 1,
+            //    CustomerId = 2,
+            //    RentDate = new DateTime(2021, 03, 15),
+            //    ReturnDate = null
+            //};
+            //var allProcesses = rentalManager.GetAllRentalProcesses();
+            //var addedProcesses = allProcesses.Data.FirstOrDefault(x => x.CarId == addedRentalProcess.CarId);
+
+            //if (addedProcesses.ReturnDate == null || addedProcesses.ReturnDate == DateTime.MinValue)
+            //{
+            //    Console.WriteLine("Araç teslim edilmemiş.");
+            //}
+            //else
+            //{
+            //    var result = rentalManager.AddRentalProcess(addedRentalProcess);
+            //    Console.WriteLine("Sonuç: " + result.Success + " | " + result.Message);
+            //}
+
+
+            //Update Rental Process
+            //var updatedRentalProcess = new Rental
+            //{
+            //    Id = 2,
+            //    CarId = 1,
+            //    CustomerId = 2,
+            //    RentDate = new DateTime(2021, 03, 15),
+            //    ReturnDate = new DateTime(2021, 03, 18)
+            //};
+            //var result = rentalManager.UpdateRentalProcess(updatedRentalProcess);
+            //Console.WriteLine("Sonuç: " + result.Success + " | " + result.Message);
+
+            //Delete Rental Process   
+            //var deletedRentalProcess = new Rental()
+            //{
+            //    Id = 1
+            //};
+            //var result = rentalManager.DeleteRentalProcess(deletedRentalProcess);
+            //Console.WriteLine("Sonuç: " + result.Success + " | " + result.Message);
+        }
+
+        private static void CustomerManagerCrudAndDto()
+        {
+            CustomerManager userManager = new CustomerManager(new EfCustomerDal());
+
+            //List All customer with dto from users table
+            //var result = userManager.GetCustomerDetail();
+            //foreach (var item in result.Data)
+            //{
+            //    Console.WriteLine($"{item.Id} - {item.UserFirstName} {item.UserLastName} - {item.CompanyName}");
+            //}
+
+            //List all Customers
+            //var result = userManager.GetAllCustomers();
+            //foreach (var item in result.Data)
+            //{
+            //    Console.WriteLine($"{item.Id} - {item.UserId} - {item.CompanyName}");
+            //}
+
+            //Get Customer
+            //var customer = userManager.GetCustomerById(1);
+            //Console.WriteLine($"{customer.Data.Id} - {customer.Data.UserId} - {customer.Data.CompanyName}");
+
+            //Add Customer
+            //var addedCustomer = new Customer
+            //{
+            //    UserId = 1,
+            //    CompanyName = "Yemeksepeti"
+            //};
+            //var result = userManager.AddCustomer(addedCustomer);
+            //Console.WriteLine("Sonuç: " + result.Success + " | " + result.Message);
+
+            //Update Customer
+            //var updatedCustomer = new Customer
+            //{
+            //    Id = 2,
+            //    UserId = 1,
+            //    CompanyName = "Intertech"
+            //};
+            //var result = userManager.UpdateCustomer(updatedCustomer);
+            //Console.WriteLine("Sonuç: " + result.Success + " | " + result.Message);
+
+            //Delete Customer   
+            //var deletedCustomer = new Customer
+            //{
+            //    Id = 1
+            //};
+            //var result = userManager.DeleteCustomer(deletedCustomer);
+            //Console.WriteLine("Sonuç: " + result.Success + " | " + result.Message);
+        }
+
+        private static void UserManagerCrud()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+
+            //List all Users
+            //var result = userManager.GetAllUsers();
+            //foreach (var item in result.Data)
+            //{
+            //    Console.WriteLine($"{item.Id} - {item.FirstName} - {item.LastName} - {item.Email} - {item.Password}");
+            //}
+
+            //Get User
+            //var user = userManager.GetSpecificUser(1);
+            //Console.WriteLine($"{user.Data.Id} - {user.Data.FirstName} - {user.Data.LastName} - {user.Data.Email} - {user.Data.Password}");
+
+            //Add User
+            //var addedUser = new User
+            //{
+            //    FirstName = "Muhammet",
+            //    LastName = "Altun",
+            //    Email = "altun.muhammetfurkan@gmail.com",
+            //    Password = "123456"
+            //};
+            //var result = userManager.AddUser(addedUser);
+            //Console.WriteLine("Sonuç: " + result.Success +" | " + result.Message);
+
+            //Update User
+            //var updatedUser = new User
+            //{
+            //    Id = 3,
+            //    FirstName = "Ricardo",
+            //    LastName = "Quaresma",
+            //    Email = "ricard@quaresma.com",
+            //    Password = "12345678999"
+            //};
+            //var result = userManager.UpdateUser(updatedUser);
+            //Console.WriteLine("Sonuç: " + result.Success + " | " + result.Message);
+
+            //Delete User
+            //var deletedUser = new User
+            //{
+            //    Id = 2
+            //};
+            //var result = userManager.DeleteUser(deletedUser);
+            //Console.WriteLine("Sonuç: " + result.Success + " | " + result.Message);
         }
 
         private static void HandleException()
